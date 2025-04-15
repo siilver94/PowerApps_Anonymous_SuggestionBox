@@ -1,0 +1,577 @@
+Screens:
+  Main_Screen:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(98, 100, 167, 1)
+    Children:
+      - Container1:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Fill: =RGBA(9, 33, 98, 1)
+            Height: =42
+            Width: =1366
+          Children:
+            - Label1:
+                Control: FluentV8/Label@1.8.6
+                Properties:
+                  Alignment: =Align.Center
+                  Color: =RGBA(255, 255, 255, 1)
+                  Font: =Font.Verdana
+                  FontSize: =17
+                  FontWeight: =FontWeight.Semibold
+                  Text: |-
+                    ="연구소 제안함
+                    "
+                  Width: =159
+                  X: =8
+                  Y: =2
+      - Form1:
+          Control: Form@2.4.2
+          Variant: Classic
+          Layout: Vertical
+          Properties:
+            BorderColor: =RGBA(204, 204, 204, 1)
+            BorderThickness: =1
+            DataSource: =Suggestion_DB
+            DefaultMode: =FormMode.New
+            Height: =462
+            OnSuccess: =//Notify("제안 전송이 완료되었습니다.", NotificationType.Success)
+            Width: =829
+            X: =268
+            Y: =165
+          Children:
+            - 분류_DataCard1:
+                Control: TypedDataCard@1.0.6
+                Variant: PcfCoreComboBoxEditCard
+                Properties:
+                  BorderColor: =RGBA(243, 242, 241, 1)
+                  DataField: ="OData__xbd84__xb958_"
+                  Default: =ThisItem.분류
+                  DisplayName: =DataSourceInfo([@Suggestion_DB],DataSourceInfo.DisplayName,분류)
+                  Required: =false
+                  Update: =DataCardValue3.Selected
+                  WidthFit: =false
+                  Y: =0
+                Children:
+                  - DataCardKey3:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        AutoHeight: =true
+                        FontSize: =9
+                        Height: =22
+                        Text: =Parent.DisplayName
+                        Tooltip: =Parent.DisplayName
+                        VerticalAlignment: =VerticalAlign.Bottom
+                        Width: =130
+                        X: =24
+                        Y: =12
+                  - DataCardValue3:
+                      Control: Classic/ComboBox@2.4.0
+                      Properties:
+                        AccessibleLabel: =If(Parent.Required, Substitute("{0}. 필요합니다.", "{0}", Parent.DisplayName), Parent.DisplayName)
+                        BorderColor: =RGBA(243, 242, 241, 1)
+                        ChevronBackground: =RGBA(243, 242, 241, 1)
+                        ChevronDisabledBackground: =RGBA(243, 242, 241, 1)
+                        ChevronDisabledFill: =RGBA(200, 198, 196, 1)
+                        ChevronFill: =RGBA(96, 94, 92, 1)
+                        ChevronHoverBackground: =RGBA(243, 242, 241, 1)
+                        ChevronHoverFill: =RGBA(96, 94, 92, 1)
+                        Color: =RGBA(37, 36, 35, 1)
+                        DefaultSelectedItems: =Parent.Default
+                        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+                        DisabledColor: =RGBA(200, 198, 196, 1)
+                        DisabledFill: =RGBA(243, 242, 241, 1)
+                        DisplayFields: =["Value"]
+                        DisplayMode: =Parent.DisplayMode
+                        Fill: =RGBA(243, 242, 241, 1)
+                        FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                        FocusedBorderThickness: =2
+                        Font: =Font.'Segoe UI'
+                        Height: =32
+                        HoverBorderColor: =ColorFade(RGBA(98, 100, 167, 1), -80%)
+                        HoverColor: =RGBA(37, 36, 35, 1)
+                        HoverFill: =RGBA(230, 230, 230, 1)
+                        IsSearchable: =false
+                        Items: |+
+                          =Choices([@Suggestion_DB].분류)
+                        PaddingLeft: =12
+                        PressedBorderColor: =ColorFade(RGBA(98, 100, 167, 1), -30%)
+                        PressedColor: =RGBA(255, 255, 255, 1)
+                        PressedFill: =RGBA(243, 242, 241, 1)
+                        SearchFields: =["Value"]
+                        SelectMultiple: =false
+                        SelectionColor: =RGBA(37, 36, 35, 1)
+                        SelectionFill: =RGBA(237, 235, 233, 1)
+                        Size: =10.5
+                        Tooltip: =Parent.DisplayName
+                        Width: =206
+                        X: =24
+                        Y: =DataCardKey3.Y + DataCardKey3.Height + 4
+                  - ErrorMessage3:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        AutoHeight: =true
+                        Color: =Color.Red
+                        FontSize: =9
+                        Height: =30
+                        Text: =Parent.Error
+                        Tooltip: =Parent.Error
+                        Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =DataCardValue3.Y + DataCardValue3.Height
+                  - StarVisible3:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Height: =20
+                        Text: ="*"
+                        VerticalAlignment: =VerticalAlign.Bottom
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Y: =DataCardKey3.Y
+            - 제목_DataCard1:
+                Control: TypedDataCard@1.0.6
+                Variant: PcfCoreTextualEditCard
+                Properties:
+                  BorderColor: =RGBA(243, 242, 241, 1)
+                  DataField: ="Title"
+                  Default: =ThisItem.제목
+                  DisplayName: =DataSourceInfo([@Suggestion_DB],DataSourceInfo.DisplayName,제목)
+                  MaxLength: =DataSourceInfo([@Suggestion_DB], DataSourceInfo.MaxLength, 제목)
+                  Required: =false
+                  Update: =DataCardValue1.Value
+                  Width: =828
+                  WidthFit: =false
+                  Y: =1
+                Children:
+                  - DataCardKey1:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        AutoHeight: =true
+                        FontSize: =9
+                        Height: =22
+                        Text: =Parent.DisplayName
+                        Tooltip: =Parent.DisplayName
+                        VerticalAlignment: =VerticalAlign.Bottom
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =10
+                  - DataCardValue1:
+                      Control: FluentV8/TextBox@1.7.1
+                      Properties:
+                        AccessibleLabel: =Parent.DisplayName
+                        ColorBackground: =RGBA(244, 244, 243, 1)
+                        DisplayMode: =Parent.DisplayMode
+                        Font: =Font.Verdana
+                        FontSize: =9
+                        Required: =Parent.Required
+                        Tooltip: =Parent.DisplayName
+                        Value: =Parent.Default
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =DataCardKey1.Y + DataCardKey1.Height + 4
+                  - ErrorMessage1:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        AutoHeight: =true
+                        Color: =Color.Red
+                        FontSize: =9
+                        Height: =30
+                        Text: =Parent.Error
+                        Tooltip: =Parent.Error
+                        Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =DataCardValue1.Y + DataCardValue1.Height
+                  - StarVisible1:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Height: =30
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Y: =DataCardKey1.Y
+            - 내용_DataCard1:
+                Control: TypedDataCard@1.0.6
+                Variant: PcfCoreTextualEditCard
+                Properties:
+                  BorderColor: =RGBA(243, 242, 241, 1)
+                  DataField: ="OData__xb0b4__xc6a9_"
+                  Default: =ThisItem.내용
+                  DisplayName: =DataSourceInfo([@Suggestion_DB],DataSourceInfo.DisplayName,내용)
+                  Height: =279
+                  MaxLength: =DataSourceInfo([@Suggestion_DB], DataSourceInfo.MaxLength, 내용)
+                  Required: =false
+                  Update: =DataCardValue2.Value
+                  Width: =828
+                  WidthFit: =false
+                  Y: =2
+                Children:
+                  - DataCardKey2:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        AutoHeight: =true
+                        FontSize: =9
+                        Height: =22
+                        Text: =Parent.DisplayName
+                        Tooltip: =Parent.DisplayName
+                        VerticalAlignment: =VerticalAlign.Bottom
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =10
+                  - DataCardValue2:
+                      Control: FluentV8/TextBox@1.7.1
+                      Properties:
+                        AccessibleLabel: =Parent.DisplayName
+                        ColorBackground: =RGBA(244, 244, 243, 1)
+                        DisplayMode: =Parent.DisplayMode
+                        Font: =Font.Verdana
+                        FontSize: =8.5
+                        Height: =201
+                        Mode: ='TextBox.Mode'.Multiline
+                        Required: =Parent.Required
+                        Tooltip: =Parent.DisplayName
+                        Value: =Parent.Default
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =DataCardKey2.Y + DataCardKey2.Height + 4
+                  - ErrorMessage2:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        AutoHeight: =true
+                        Color: =Color.Red
+                        FontSize: =9
+                        Height: =30
+                        Text: =Parent.Error
+                        Tooltip: =Parent.Error
+                        Visible: =And(!IsBlank(Parent.Error), Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =Parent.Width - 48
+                        X: =24
+                        Y: =DataCardValue2.Y + DataCardValue2.Height
+                  - StarVisible2:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Height: =30
+                        Text: ="*"
+                        Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                        Width: =30
+                        Y: =DataCardKey2.Y
+      - Send_btn:
+          Control: FluentV8/Button@1.5.12
+          Properties:
+            OnSelect: |-
+              =SubmitForm(Form1);
+
+              Navigate(Complete_Screen)
+            Text: ="전송하기"
+            X: =976
+            Y: =576
+      - Select_btn:
+          Control: FluentV8/Button@1.5.12
+          Properties:
+            ButtonType: ='Button.ButtonType'.Primary
+            FillColor: =RGBA(34, 35, 58, 1)
+            OnSelect: =Set(ShowPopup, true)
+            Text: ="조회하기 "
+            Visible: |+
+              =Name_TextBox.Value = "장한기"
+            Width: =88
+            X: =868
+            Y: =576
+      - Name_TextBox:
+          Control: FluentV8/TextBox@1.7.1
+          Properties:
+            ColorBackground: =RGBA(255, 255, 255, 1)
+            ColorText: =RGBA(255, 255, 255, 1)
+            Value: |+
+              =If(
+                  IsBlank(Find("(", User().FullName)), // 괄호가 없는 경우 (이름 양식 2)
+                  Concatenate(
+                      Trim(Right(User().FullName, Len(User().FullName) - Find(" ", User().FullName))), // 공백 이후 성
+                      Trim(Left(User().FullName, Find(" ", User().FullName))) // 공백 이전 이름
+                  ),
+                  Trim(Left(User().FullName, Find("(", User().FullName) - 1)) // 괄호가 있는 경우 (이름 양식 1)
+              )
+            Width: =74
+            X: =1292
+            Y: =736
+      - back_Rectangle:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(243, 242, 241, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledFill: =RGBA(0, 0, 0, 0)
+            Fill: =RGBA(0, 0, 0, 0.5)
+            FocusedBorderColor: =RGBA(98, 100, 167, 1)
+            Height: =768
+            HoverFill: =RGBA(0, 0, 0, 0.5)
+            OnSelect: =Set(ShowPopup, false)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Visible: =ShowPopup
+            Width: =1366
+      - popup_Rectangle:
+          Control: Rectangle@2.3.0
+          Properties:
+            BorderColor: =RGBA(243, 242, 241, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledFill: =RGBA(200, 198, 196, 1)
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(255, 255, 255, 1)
+            FocusedBorderColor: =RGBA(98, 100, 167, 1)
+            Height: =648
+            HoverFill: =RGBA(255, 255, 255, 1)
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Visible: =ShowPopup
+            Width: =1278
+            X: =44
+            Y: =64
+      - Container2:
+          Control: GroupContainer@1.3.0
+          Variant: ManualLayout
+          Properties:
+            Height: =648
+            Visible: =ShowPopup
+            Width: =1278
+            X: =44
+            Y: =64
+          Children:
+            - Icon1:
+                Control: Classic/Icon@2.5.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 0)
+                  Color: =RGBA(98, 100, 167, 1)
+                  DisabledBorderColor: =RGBA(243, 242, 241, 1)
+                  DisabledColor: =RGBA(220, 220, 220, 1)
+                  DisabledFill: =RGBA(0, 0, 0, 0)
+                  Height: =32
+                  HoverBorderColor: =RGBA(0, 0, 0, 0)
+                  HoverColor: =ColorFade(RGBA(98, 100, 167, 1), -30%)
+                  HoverFill: =RGBA(0, 0, 0, 0)
+                  Icon: =Icon.Cancel
+                  OnSelect: =Set(ShowPopup,false)
+                  PaddingBottom: =3
+                  PaddingLeft: =3
+                  PaddingRight: =3
+                  PaddingTop: =3
+                  PressedBorderColor: =RGBA(0, 0, 0, 0)
+                  PressedColor: =ColorFade(RGBA(98, 100, 167, 1), -30%)
+                  PressedFill: =RGBA(0, 0, 0, 0)
+                  Width: =32
+                  X: =1240
+                  Y: =4
+            - Container2_1:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  BorderThickness: =1
+                  Height: =563
+                  Width: =1211
+                  X: =29
+                  Y: =74
+                Children:
+                  - Gallery2:
+                      Control: Gallery@2.15.0
+                      Variant: Vertical
+                      Properties:
+                        BorderColor: =RGBA(0, 0, 0, 1)
+                        BorderStyle: =BorderStyle.None
+                        BorderThickness: =1
+                        FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                        FocusedBorderThickness: =2
+                        Height: =563
+                        Items: |+
+                          =//Suggestion_DB
+                          SortByColumns(
+                              Suggestion_DB,
+                              "Created",
+                              SortOrder.Descending
+                              )
+                        TemplateSize: =92
+                        Width: =1211
+                      Children:
+                        - Label2:
+                            Control: FluentV8/Label@1.8.6
+                            Properties:
+                              Alignment: =Align.Center
+                              Font: =Font.Verdana
+                              FontSize: =10
+                              Height: =88
+                              Text: =Text(ThisItem.'만든 날짜', "yyyy.mm.dd") & ""
+                              Width: =98
+                        - Label2_1:
+                            Control: FluentV8/Label@1.8.6
+                            Properties:
+                              Alignment: =Align.Center
+                              Font: =Font.Verdana
+                              FontSize: =10
+                              FontWeight: =FontWeight.Semibold
+                              Height: =88
+                              Text: =ThisItem.제목
+                              Width: =282
+                              X: =220
+                        - TextBox3:
+                            Control: FluentV8/TextBox@1.7.1
+                            Properties:
+                              ColorBackground: =RGBA(255, 255, 255, 1)
+                              Font: =Font.Verdana
+                              FontSize: =10
+                              Height: =90
+                              Mode: ='TextBox.Mode'.Multiline
+                              Value: =PlainText(ThisItem.내용)
+                              Width: =670
+                              X: =502
+                        - Label2_2:
+                            Control: FluentV8/Label@1.8.6
+                            Properties:
+                              Alignment: =Align.Center
+                              Font: =Font.Verdana
+                              FontSize: =10
+                              Height: =88
+                              Text: =ThisItem.분류.Value
+                              Width: =98
+                              X: =110
+                        - Rectangle3:
+                            Control: Rectangle@2.3.0
+                            Properties:
+                              BorderColor: =RGBA(243, 242, 241, 1)
+                              BorderStyle: =BorderStyle.None
+                              BorderThickness: =1
+                              DisabledFill: =RGBA(200, 198, 196, 1)
+                              Fill: =RGBA(0, 0, 0, 1)
+                              FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                              Height: =0.5
+                              HoverFill: =RGBA(98, 100, 167, 1)
+                              OnSelect: =Select(Parent)
+                              PressedFill: =RGBA(98, 100, 167, 1)
+                              Width: =1170
+                              Y: =90
+            - Label3_4:
+                Control: FluentV8/Label@1.8.6
+                Properties:
+                  Alignment: =Align.Center
+                  Font: =Font.Verdana
+                  FontSize: =15
+                  FontWeight: =FontWeight.Semibold
+                  Text: |-
+                    ="연구소 제안 내역
+                    "
+                  Width: =1147
+                  X: =29
+                  Y: =5
+            - Container3:
+                Control: GroupContainer@1.3.0
+                Variant: ManualLayout
+                Properties:
+                  BorderThickness: =1
+                  Fill: =RGBA(204, 204, 204, 1)
+                  Height: =28
+                  Width: =1211
+                  X: =29
+                  Y: =46
+                Children:
+                  - Label3:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Font: =Font.Verdana
+                        FontSize: =12
+                        FontWeight: =FontWeight.Semibold
+                        Height: =26
+                        Text: ="작성날짜"
+                        Width: =92
+                        X: =7
+                  - Label3_1:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Font: =Font.Verdana
+                        FontSize: =12
+                        FontWeight: =FontWeight.Semibold
+                        Height: =26
+                        Text: ="분류"
+                        Width: =93
+                        X: =116
+                  - Label3_2:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Font: =Font.Verdana
+                        FontSize: =12
+                        FontWeight: =FontWeight.Semibold
+                        Height: =26
+                        Text: ="제목"
+                        Width: =255
+                        X: =239
+                  - Label3_3:
+                      Control: FluentV8/Label@1.8.6
+                      Properties:
+                        Alignment: =Align.Center
+                        Font: =Font.Verdana
+                        FontSize: =12
+                        FontWeight: =FontWeight.Semibold
+                        Height: =26
+                        Text: ="내용"
+                        Width: =653
+                        X: =518
+            - Rectangle1_1:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  BorderThickness: =0.5
+                  DisabledFill: =RGBA(200, 198, 196, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                  Height: =590
+                  HoverFill: =RGBA(98, 100, 167, 1)
+                  PressedFill: =RGBA(98, 100, 167, 1)
+                  Width: =0.2
+                  X: =1204
+                  Y: =47
+            - Rectangle1_2:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  BorderThickness: =0.5
+                  DisabledFill: =RGBA(200, 198, 196, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                  Height: =590
+                  HoverFill: =RGBA(98, 100, 167, 1)
+                  PressedFill: =RGBA(98, 100, 167, 1)
+                  Width: =0.2
+                  X: =541
+                  Y: =46
+            - Rectangle1_3:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  BorderThickness: =0.5
+                  DisabledFill: =RGBA(200, 198, 196, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                  Height: =590
+                  HoverFill: =RGBA(98, 100, 167, 1)
+                  PressedFill: =RGBA(98, 100, 167, 1)
+                  Width: =0.2
+                  X: =248
+                  Y: =46
+            - Rectangle1_4:
+                Control: Rectangle@2.3.0
+                Properties:
+                  BorderColor: =RGBA(0, 0, 0, 1)
+                  BorderThickness: =0.5
+                  DisabledFill: =RGBA(200, 198, 196, 1)
+                  Fill: =RGBA(0, 0, 0, 0)
+                  FocusedBorderColor: =RGBA(98, 100, 167, 1)
+                  Height: =590
+                  HoverFill: =RGBA(98, 100, 167, 1)
+                  PressedFill: =RGBA(98, 100, 167, 1)
+                  Width: =0.2
+                  X: =137
+                  Y: =46
