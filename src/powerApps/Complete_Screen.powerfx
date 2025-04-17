@@ -1,0 +1,51 @@
+
+Screens:
+  Complete_Screen:
+    Properties:
+      Fill: =RGBA(255, 255, 255, 1)
+      LoadingSpinnerColor: =RGBA(98, 100, 167, 1)
+    Children:
+      - iconCircle1:
+          Control: Circle@2.3.0
+          Properties:
+            BorderColor: =RGBA(243, 242, 241, 1)
+            BorderStyle: =BorderStyle.None
+            BorderThickness: =2
+            DisabledFill: =RGBA(98, 100, 167, 1)
+            Fill: =RGBA(98, 100, 167, 1)
+            HoverFill: =RGBA(98, 100, 167, 1)
+            PressedFill: =RGBA(98, 100, 167, 1)
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =(Parent.Height/2 - Self.Height/2) * .7
+      - iconCheck1:
+          Control: Classic/Icon@2.5.0
+          Properties:
+            BorderColor: =RGBA(0, 0, 0, 0)
+            Color: =RGBA(255, 255, 255, 1)
+            DisabledBorderColor: =RGBA(0, 0, 0, 0)
+            DisabledColor: =RGBA(220, 220, 220, 1)
+            Height: =iconCircle1.Height
+            Icon: =Icon.Check
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingTop
+            PaddingTop: =24
+            PressedFill: =RGBA(0, 0, 0, 0)
+            Width: =iconCircle1.Width
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =(Parent.Height/2 - Self.Height/2) * .7
+      - LblSuccessMsg1:
+          Control: Label@2.5.1
+          Properties:
+            Align: =Align.Center
+            AutoHeight: =true
+            BorderColor: =RGBA(0, 0, 0, 1)
+            Color: =RGBA(37, 36, 35, 1)
+            DisabledColor: =RGBA(200, 198, 196, 1)
+            Font: =Font.'Segoe UI'
+            Height: =iconCircle1.Height
+            Size: =20
+            Text: ="전송이 완료되었습니다."
+            Width: =Parent.Width * 0.75
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =iconCheck1.Y + iconCheck1.Height + 100
