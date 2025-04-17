@@ -1,0 +1,4 @@
+*.msapp
+*.tmp
+.DS_Store
+Thumbs.db
